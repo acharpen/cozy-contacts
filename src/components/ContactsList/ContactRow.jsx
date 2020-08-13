@@ -28,17 +28,12 @@ class ContactRow extends Component {
       address: undefined
     }
     const name = contact.name || {}
-    const displayName = contact.displayName || ''
     const isMyself = contact.metadata ? !!contact.metadata.me : false
     const cozyUrl = getPrimaryOrFirst(contact.cozy) || { url: undefined }
     return (
       <div className="contact" onClick={onClick}>
         <ContactWithSelection contact={contact} />
-        <ContactIdentity
-          name={name}
-          displayName={displayName}
-          myself={isMyself}
-        />
+        <ContactIdentity name={name} myself={isMyself} />
         {!isMobile && <ContactEmail email={email} />}
         {!isMobile && <ContactPhone phone={phone} />}
         {!isMobile && <ContactCozy cozyUrl={cozyUrl.url} />}

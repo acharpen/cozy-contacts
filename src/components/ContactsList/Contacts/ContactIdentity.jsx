@@ -9,10 +9,10 @@ import { getInitials } from '../../../helpers/contacts'
 const MyselfMarker = (props, { t }) => (
   <span className="contact-myself">({t('me')})</span>
 )
-const ContactIdentity = ({ name, displayName, myself }) => (
+const ContactIdentity = ({ name, myself }) => (
   <div className="contact-identity">
     <Avatar text={getInitials(name).toUpperCase()} size="small" />
-    <ContactName displayName={displayName} lastname={name.familyName} />
+    <ContactName firstname={name.givenName} lastname={name.familyName} />
     {myself && <MyselfMarker />}
   </div>
 )
