@@ -3698,10 +3698,10 @@ cozy-client@13.15.0:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@^13.13.0, cozy-client@^13.6.0:
-  version "13.20.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.20.0.tgz#307849253ed577e04e4271f2e45812765bb5e72e"
-  integrity sha512-uaIqis28V9PN7mHIL3Byqc5WuKW0957jPmyCvAHwXC9t6ydCclswOnNcIuhvXZ1HxTIpUjc7AU041eh1eqjrSw==
+cozy-client@13.20.1:
+  version "13.20.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.20.1.tgz#2216595025a117331a81c1d7cc8dcced3110a1a2"
+  integrity sha512-QT8gGpqag//38LyNrL18rcCWwSiQfJVW8v5G+qcFrmK47Ljt0FuusfPPSUnVGsB74KFWou/G++hAXDILILpIMA==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
@@ -3720,10 +3720,10 @@ cozy-client@^13.13.0, cozy-client@^13.6.0:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@^13.20.1:
-  version "13.20.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.20.1.tgz#2216595025a117331a81c1d7cc8dcced3110a1a2"
-  integrity sha512-QT8gGpqag//38LyNrL18rcCWwSiQfJVW8v5G+qcFrmK47Ljt0FuusfPPSUnVGsB74KFWou/G++hAXDILILpIMA==
+cozy-client@^13.13.0, cozy-client@^13.6.0:
+  version "13.20.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.20.0.tgz#307849253ed577e04e4271f2e45812765bb5e72e"
+  integrity sha512-uaIqis28V9PN7mHIL3Byqc5WuKW0957jPmyCvAHwXC9t6ydCclswOnNcIuhvXZ1HxTIpUjc7AU041eh1eqjrSw==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
@@ -11505,7 +11505,7 @@ react-redux@5.1.1:
     react-is "^16.6.0"
     react-lifecycles-compat "^3.0.0"
 
-react-redux@7.2.1, react-redux@^7.2.0:
+react-redux@^7.2.0:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.1.tgz#8dedf784901014db2feca1ab633864dee68ad985"
   integrity sha512-T+VfD/bvgGTUA74iW9d2i5THrDQWbweXP0AVNI8tNd1Rk5ch1rnMiJkDD67ejw7YBKM4+REvcvqRuWJb7BLuEg==

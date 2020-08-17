@@ -12,7 +12,7 @@ const MyselfMarker = (props, { t }) => (
 
 const ContactIdentity = ({ contact }) => {
   const name = contact.name || {}
-  const displayName = getDisplayName(contact) || undefined
+  const displayName = getDisplayName(contact)
   const isMyself = contact.metadata ? !!contact.metadata.me : false
 
   return (

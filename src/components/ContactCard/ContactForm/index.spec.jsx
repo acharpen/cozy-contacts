@@ -168,7 +168,7 @@ describe('ContactForm', () => {
       displayName: '',
       email: [],
       fullname: '',
-      indexes: { byFamilyNameGivenNameEmailCozyUrl: {} },
+      indexes: { byFamilyNameGivenNameEmailCozyUrl: '' },
       jobTitle: '',
       metadata: { cozy: true, version: 1 },
       name: { familyName: undefined, givenName: undefined },
