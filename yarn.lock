@@ -9030,7 +9030,6 @@ minilog@3.1.0:
 
 "minilog@git+https://github.com/cozy/minilog.git#master":
   version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
   resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
@@ -11506,7 +11505,7 @@ react-redux@5.1.1:
     react-is "^16.6.0"
     react-lifecycles-compat "^3.0.0"
 
-react-redux@^7.2.0:
+react-redux@7.2.1, react-redux@^7.2.0:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.1.tgz#8dedf784901014db2feca1ab633864dee68ad985"
   integrity sha512-T+VfD/bvgGTUA74iW9d2i5THrDQWbweXP0AVNI8tNd1Rk5ch1rnMiJkDD67ejw7YBKM4+REvcvqRuWJb7BLuEg==
