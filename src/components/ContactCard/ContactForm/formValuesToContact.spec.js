@@ -70,7 +70,7 @@ describe('formValuesToContact', () => {
       displayName: 'John Doe',
       indexes: {
         byFamilyNameGivenNameEmailCozyUrl:
-          'DoeJohnjohn.doe@cozycloud.ccjohndoe.mycozy.cloud'
+          'Doejohnjohn.doe@cozycloud.ccjohndoe.mycozy.cloud'
       }
     }
     const result = formValuesToContact(johnDoeFormValues, null)
@@ -123,7 +123,7 @@ describe('formValuesToContact', () => {
       metadata: { version: 1, cozy: true },
       displayName: 'Doe Jane',
       indexes: {
-        byFamilyNameGivenNameEmailCozyUrl: 'JaneDoe'
+        byFamilyNameGivenNameEmailCozyUrl: 'Janedoe'
       }
     }
 
