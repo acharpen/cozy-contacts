@@ -19,7 +19,7 @@ import { ModalManager } from '../helpers/modalManager'
 import { initFlags } from '../helpers/flags'
 import container from './AppContainer'
 import { useClient } from 'cozy-client'
-import ContentWrapper from './Content/ContentWrapper'
+import ContentWrapper from './Content/ContentWrapperSimpleQuery'
 import SpinnerContact from './Components/Spinner'
 
 const ContactsApp = props => {

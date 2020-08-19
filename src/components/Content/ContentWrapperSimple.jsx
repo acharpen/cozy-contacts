@@ -2,17 +2,8 @@ import React from 'react'
 import { PropTypes } from 'prop-types'
 import { useClient } from 'cozy-client'
 import log from 'cozy-logger'
-// import { sortBy } from 'lodash'
-
-// import ShowContent from './ShowContent'
-
-import {
-  fetchContactsWithAndWithoutIndexes,
-  fetchAllContactsAndUpdateAndSort
-} from '../../helpers/contentWrapper'
-
-// import { useQuery } from 'cozy-client'
-// import { allContacts } from '../../helpers/queries'
+import { useQuery } from 'cozy-client'
+import { allContacts } from '../../helpers/queries'
 
 import { Content } from 'cozy-ui/transpiled/react/Layout'
 import ContactsListDataLoader from '../ContactsList/ContactsListDataLoader'
@@ -32,12 +23,7 @@ const ContentWrapper = ({ trigger, isTriggerLaunched }) => {
     client.collection('io.cozy.triggers').launch(trigger)
   }
 
-  // const result = useQuery(allContacts.definition, allContacts.options)
-
-  const result =
-    isTriggerLaunched === true
-      ? fetchContactsWithAndWithoutIndexes()
-      : fetchAllContactsAndUpdateAndSort()
+  const result = useQuery(allContacts.definition, allContacts.options)
 
   const { fetchStatus, hasMore, fetchMore } = result
   const contacts = result.data === null ? [] : result.data
@@ -54,7 +40,6 @@ const ContentWrapper = ({ trigger, isTriggerLaunched }) => {
         />
       </Content>
     </>
-    // <ShowContent result={result} />
   )
 }
 ContentWrapper.propTypes = {
