@@ -18,7 +18,9 @@ import ContactsSelectionBar from './layout/ContactsSelectionBar'
 import { ModalManager } from '../helpers/modalManager'
 import { initFlags } from '../helpers/flags'
 import container from './AppContainer'
-import Content from './Content'
+import { useClient } from 'cozy-client'
+import ContentWrapper from './Content/ContentWrapper'
+import SpinnerContact from './Components/Spinner'
 
 const ContactsApp = props => {
   // HACK to avoid CozyBar error :
@@ -26,9 +28,32 @@ const ContactsApp = props => {
   // TODO : TO BE REMOVED
   const [cozyBarHack, setcozyBarHack] = useState(false)
 
+  const [trigger, setTrigger] = useState(null)
+  const [isTriggerLaunched, setIsTriggerLaunched] = useState(null)
+
+  const setTriggerAndIsTriggerLaunched = async client => {
+    const triggerName = 'keepIndexFullNameAndDisplayNameUpToDate'
+    const triggers = await client.query(
+      client.find('io.cozy.triggers', {
+        'message.name': triggerName
+      })
+    )
+    const normalizedTrigger = await client.query(
+      client.get('io.cozy.triggers', triggers.data[0].id)
+    )
+    const trigger = normalizedTrigger.data
+    setTrigger(trigger)
+    setIsTriggerLaunched(trigger.current_state.last_success.length > 0)
+  }
+
+  const client = useClient()
+
   useEffect(() => {
     initFlags()
     props.cleanTrashedGroups()
+    if (!trigger) {
+      setTriggerAndIsTriggerLaunched(client)
+    }
 
     // HACK to be removed
     setTimeout(() => {
@@ -56,7 +81,14 @@ const ContactsApp = props => {
       <Main>
         {flag('switcher') && <FlagSwitcher />}
         <ContactsSelectionBar trashAction={deleteContact} />
-        <Content />
+        {isTriggerLaunched === null ? (
+          <SpinnerContact size="xxlarge" loadingType="fetching_contacts" />
+        ) : (
+          <ContentWrapper
+            trigger={trigger}
+            isTriggerLaunched={isTriggerLaunched}
+          />
+        )}
         <Alerter t={t} />
         <ModalManager />
       </Main>

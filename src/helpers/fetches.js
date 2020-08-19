@@ -4,7 +4,7 @@ import { DOCTYPE_CONTACTS } from './doctypes'
 import { updateIndexFullNameAndDisplayName } from './contacts'
 
 /**
- * Fetch and returns a promise of contacts to update according to this :
+ * Fetches and returns a promise of contacts to update according to this :
  * The update date of the contact is more recent than the 'date'
  * @param {object} client - cozyClient
  * @param {string} date - date of comparison
@@ -50,7 +50,7 @@ export const fetchContactsToUpdate = async (client, date) => {
 }
 
 /**
- * Fetch and returns a promise of service's last success time
+ * Fetches and returns a promise of service's last success time
  * @param {object} client - cozyClient
  * @param {string} serviceName - name of the service
  * @returns {promise<String>} last success time of a service

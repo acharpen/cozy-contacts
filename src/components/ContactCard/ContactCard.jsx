@@ -12,6 +12,8 @@ const ContactCard = ({ t, contact, renderHeader, renderBody, allGroups }) => {
   const normalizedFields = normalizeFields(contact)
   const activeContactAccounts = getConnectedAccounts(contact)
 
+  console.info('contact', contact)
+
   return (
     <>
       {renderHeader(
