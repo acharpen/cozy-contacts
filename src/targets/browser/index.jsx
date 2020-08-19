@@ -4,6 +4,7 @@ import 'styles'
 
 import React from 'react'
 import CozyClient, { CozyProvider } from 'cozy-client'
+import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 import { I18n, initTranslation } from 'cozy-ui/transpiled/react/I18n'
 import App from 'components/App'
@@ -12,15 +13,20 @@ import { hot } from 'react-hot-loader'
 import { schema } from '../../helpers/doctypes'
 import manifest from '../../../manifest.webapp'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 const RootApp = props => (
-  <CozyProvider client={props.client} store={props.store}>
-    <I18n lang={props.lang} polyglot={props.polyglot}>
-      <MuiCozyTheme>
-        <HotedApp />
-      </MuiCozyTheme>
-    </I18n>
-  </CozyProvider>
+  <Provider store={props.store}>
+    <CozyProvider client={props.client} store={props.store}>
+      <I18n lang={props.lang} polyglot={props.polyglot}>
+        <MuiCozyTheme>
+          <BreakpointsProvider>
+            <HotedApp />
+          </BreakpointsProvider>
+        </MuiCozyTheme>
+      </I18n>
+    </CozyProvider>
+  </Provider>
 )
 
 const HotedApp = hot(module)(App)
