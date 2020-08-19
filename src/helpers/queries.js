@@ -21,6 +21,25 @@ import { DOCTYPE_CONTACTS } from './doctypes'
 //   }
 // }
 
+export const queryContactById = {
+  definition: id => () => Q(DOCTYPE_CONTACTS).getById(id),
+  options: {
+    as: 'contactById'
+  }
+}
+export const queryAllGroups = {
+  definition: () =>
+    Q('io.cozy.contacts.groups')
+      .where({
+        trashed: { $exists: false }
+      })
+      .sortBy([{ name: 'asc' }])
+      .indexFields(['name']),
+  options: {
+    as: 'allGroups'
+  }
+}
+
 export const allContacts = {
   definition: () =>
     Q(DOCTYPE_CONTACTS)

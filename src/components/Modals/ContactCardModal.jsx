@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Modal, {
   ModalHeader,
   ModalContent
 } from 'cozy-ui/transpiled/react/Modal'
-import { DOCTYPE_CONTACTS } from '../../helpers/doctypes'
 import { getConnectedAccounts } from '../../helpers/contacts'
 
 import withContactsMutations from '../../connections/allContacts'
@@ -14,83 +13,66 @@ import SpinnerContact from '../Components/Spinner'
 import ContactFormModal from './ContactFormModal'
 import ContactGroups from '../ContactCard/ContactGroups'
 import Button from 'cozy-ui/transpiled/react/Button'
-import { Query } from 'cozy-client'
+import { useQuery } from 'cozy-client'
 import { flow } from 'lodash'
+import { queryContactById, queryAllGroups } from '../../helpers/queries'
 
-export class ContactCardModal extends React.Component {
-  state = {
-    editMode: false,
-    shouldDisplayConfirmDeleteModal: false
+const ContactCardModal = props => {
+  const [editMode, setEditMode] = useState(false)
+  const [
+    shouldDisplayConfirmDeleteModal,
+    setShouldDisplayConfirmDeleteModal
+  ] = useState(false)
+
+  const toggleConfirmDeleteModal = () => {
+    setShouldDisplayConfirmDeleteModal(!shouldDisplayConfirmDeleteModal)
   }
 
-  toggleConfirmDeleteModal = () => {
-    this.setState(state => ({
-      shouldDisplayConfirmDeleteModal: !state.shouldDisplayConfirmDeleteModal
-    }))
-  }
-
-  deleteContact = async (contactParam = null) => {
-    const { contact, deleteContact, onDeleteContact, onClose } = this.props
+  const deleteContact = async (contactParam = null) => {
+    const { contact, deleteContact, onDeleteContact, onClose } = props
     onClose && onClose()
     await deleteContact(contactParam ? contactParam : contact)
     onDeleteContact && onDeleteContact(contactParam ? contactParam : contact)
   }
 
-  toggleEditMode = () => {
-    this.setState(state => ({
-      editMode: !state.editMode
-    }))
+  const toggleEditMode = () => {
+    setEditMode(!editMode)
   }
 
-  render() {
-    const { onClose, t, id } = this.props
-    const { editMode, shouldDisplayConfirmDeleteModal } = this.state
+  const { onClose, t, id } = props
 
-    return (
-      <Modal into="body" dismissAction={onClose} size="xlarge" mobileFullscreen>
-        <Query query={client => client.get(DOCTYPE_CONTACTS, id)}>
-          {({ data: contact, fetchStatus: fetchContactStatus }) => {
-            return (
-              <Query
-                query={client =>
-                  client
-                    .find('io.cozy.contacts.groups')
-                    .where({
-                      trashed: { $exists: false }
-                    })
-                    .sortBy([{ name: 'asc' }])
-                    .indexFields(['name'])
-                }
-              >
-                {({ data: allGroups, fetchStatus: allGroupsContactStatus }) => {
-                  if (
-                    fetchContactStatus !== 'loaded' ||
-                    allGroupsContactStatus !== 'loaded'
-                  ) {
-                    return <SpinnerContact size="xxlarge" />
-                  }
-                  return (
-                    <DumbContactCardModal
-                      editMode={editMode}
-                      contact={contact}
-                      allGroups={allGroups}
-                      t={t}
-                      toggleConfirmDeleteModal={this.toggleConfirmDeleteModal}
-                      toggleEditMode={this.toggleEditMode}
-                      shouldDisplayConfirmDeleteModal={
-                        shouldDisplayConfirmDeleteModal
-                      }
-                      deleteContact={this.deleteContact}
-                    />
-                  )
-                }}
-              </Query>
-            )
-          }}
-        </Query>
-      </Modal>
-    )
-  }
+  const resultContactById = useQuery(
+    queryContactById.definition(id),
+    queryContactById.options
+  )
+  const resultAllGroups = useQuery(
+    queryAllGroups.definition,
+    queryAllGroups.options
+  )
+
+  const contact =
+    resultContactById.data !== null ? resultContactById.data[0] : {}
+  const allGroups = resultAllGroups.data !== null ? resultAllGroups.data : []
+
+  return (
+    <Modal into="body" dismissAction={onClose} size="xlarge" mobileFullscreen>
+      {resultContactById.fetchStatus !== 'loaded' ||
+      resultAllGroups.fetchStatus !== 'loaded' ? (
+        <SpinnerContact size="xxlarge" />
+      ) : (
+        <DumbContactCardModal
+          editMode={editMode}
+          contact={contact}
+          allGroups={allGroups}
+          t={t}
+          toggleConfirmDeleteModal={toggleConfirmDeleteModal}
+          toggleEditMode={toggleEditMode}
+          shouldDisplayConfirmDeleteModal={shouldDisplayConfirmDeleteModal}
+          deleteContact={deleteContact}
+        />
+      )}
+    </Modal>
+  )
 }
 
 export const DumbContactCardModal = ({
