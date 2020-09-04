@@ -12,10 +12,10 @@ import {
   contactsByFamilyNameGivenNameEmailCozyUrl,
   contactsWithoutIndexes
 } from '../helpers/queries'
-import { reworkContacts } from '../helpers/contacts'
+// import { reworkContacts } from '../helpers/contacts'
 
 export const ContentWrapperResult = ({
-  hasServiceBeenLaunched,
+  // hasServiceBeenLaunched,
   contactsWithIndexesResult,
   contactsWithNoIndexesResult
 }) => {
@@ -28,17 +28,19 @@ export const ContentWrapperResult = ({
   if (!dataHaveBeenLoaded)
     return <SpinnerContact size="xxlarge" loadingType="fetching_contacts" />
 
-  const contacts = reworkContacts(
-    hasServiceBeenLaunched,
-    contactsWithIndexesResult.data,
-    contactsWithNoIndexesResult.data
-  )
+  // const contacts = reworkContacts(
+  //   hasServiceBeenLaunched,
+  //   contactsWithIndexesResult.data,
+  //   contactsWithNoIndexesResult.data
+  // )
 
   return (
     <>
-      {contacts.length >= 1 && <Header right={<Toolbar />} />}
+      {contactsWithIndexesResult.data.length >= 1 && (
+        <Header right={<Toolbar />} />
+      )}
       <Content>
-        <ContactsList contacts={contacts} />
+        <ContactsList contacts={contactsWithIndexesResult.data} />
       </Content>
     </>
   )

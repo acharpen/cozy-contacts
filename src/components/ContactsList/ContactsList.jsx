@@ -4,30 +4,31 @@ import flag from 'cozy-flags'
 import Button from 'cozy-ui/transpiled/react/Button'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 
-import { categorizeContacts } from '../../helpers/contactList'
+// import { categorizeContacts } from '../../helpers/contactList'
 import ContactsEmptyList from './ContactsEmptyList'
 import ContactRow from './ContactRow'
-import ContactHeaderRow from './ContactHeaderRow'
+// import ContactHeaderRow from './ContactHeaderRow'
 import withModal from '../HOCs/withModal'
 import ContactCardModal from '../Modals/ContactCardModal'
 import withSelection from '../Selection/selectionContainer'
 
 class ContactsList extends Component {
+  showModalOnRowClick = contact => {
+    console.info('showModalOnRowClick')
+    this.props.showModal(
+      <ContactCardModal onClose={this.hideContactCard} id={contact._id} />
+    )
+  }
+
   render() {
-    const {
-      clearSelection,
-      contacts,
-      selection,
-      showModal,
-      selectAll,
-      t
-    } = this.props
+    const { clearSelection, contacts, selection, selectAll, t } = this.props
 
     if (contacts.length === 0) {
       return <ContactsEmptyList />
     } else {
+      // console.info('ContactsList')
       const allContactsSelected = contacts.length === selection.length
-      const categorizedContacts = categorizeContacts(contacts, t('empty-list'))
+      // const categorizedContacts = categorizeContacts(contacts, t('empty-list'))
 
       return (
         <div className="list-wrapper">
@@ -45,7 +46,16 @@ class ContactsList extends Component {
             </div>
           )}
           <ol className="list-contact">
-            {Object.keys(categorizedContacts).map(header => (
+            {Object.values(contacts).map(contact => (
+              <ContactRow
+                id={contact._id}
+                key={contact._id}
+                contact={contact}
+                onClick={this.showModalOnRowClick}
+              />
+            ))}
+
+            {/* {Object.keys(categorizedContacts).map(header => (
               <li key={`cat-${header}`}>
                 <ContactHeaderRow key={header} header={header} />
                 <ol className="sublist-contact">
@@ -55,20 +65,13 @@ class ContactsList extends Component {
                         id={contact._id}
                         key={contact._id}
                         contact={contact}
-                        onClick={() =>
-                          showModal(
-                            <ContactCardModal
-                              onClose={this.hideContactCard}
-                              id={contact._id}
-                            />
-                          )
-                        }
+                        onClick={this.showModalOnRowClick}
                       />
                     </li>
                   ))}
                 </ol>
               </li>
-            ))}
+            ))} */}
           </ol>
           <div />
         </div>
