@@ -12,7 +12,7 @@ import withModal from '../HOCs/withModal'
 import ContactImportationModal from '../ContactImportationModal/'
 import ContactFormModal from '../Modals/ContactFormModal'
 import ContactCardModal from '../Modals/ContactCardModal'
-import ImportGoogleButton from '../Buttons/ImportGoogleButton'
+import StoreButton from './StoreButton'
 
 import EmptyIcon from '../../assets/icons/empty-contact-list.svg'
 
@@ -72,10 +72,6 @@ class ContactsEmptyList extends React.Component {
       breakpoints: { isDesktop }
     } = this.props
     const { hasConnector } = this.state
-    const host = window.location.host
-    const isToutaticeInstance =
-      /\.mytoutatice\.cloud$/.test(host) ||
-      /\.testcloud\.toutatice\.fr$/.test(host) //@TODO Some contexts don't have the google connector available. A better way to do this would be to query the list of available connectors.
 
     return (
       <div className="u-flex u-flex-column u-flex-items-center">
@@ -99,9 +95,7 @@ class ContactsEmptyList extends React.Component {
                 />
               </span>
               <span className="u-m-0 u-mb-half">
-                {!isToutaticeInstance && (
-                  <ImportGoogleButton onComplete={this.afterConnection} />
-                )}
+                <StoreButton />
               </span>
               <span>
                 <Button
